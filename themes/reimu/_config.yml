@@ -223,11 +223,14 @@ markdown:
 
 # need https://github.com/D-Sketon/hexo-renderer-markdown-it-plus
 math:
-  enable: false
+  enable: true
+  per_page: true
+
   # If you don't want to use it, please set `autoRender` to true to enable browser rendering
   katex:
     enable: true
-    autoRender: false # whether to render the math in the browser, disabled by default
+    autoRender: true # whether to render the math in the browser, disabled by default
+    
   mathjax:
     enable: false
     options: # see https://docs.mathjax.org/en/latest/web/configuration.html
@@ -651,16 +654,16 @@ material_theme:
 
 internal_theme:
   light:
-    --red-0: "#ff0000"
-    --red-1: "#ff5252"
-    --red-2: "#ff7c7c"
-    --red-3: "#ffafaf"
-    --red-4: "#ffd0d0"
-    --red-5: "#ffecec"
-    --red-5-5: "#fff3f3"
-    --red-6: "#fff7f7"
-    --color-red-6-shadow: "rgba(255, 78, 78, 0.6)"
-    --color-red-3-shadow: "rgba(255, 78, 78, 0.3)"
+    --red-0: "#cce6ff"
+    --red-1: "#99ccff"
+    --red-2: "#66b3ff"
+    --red-3: "#3399ff"
+    --red-4: "#0080ff"
+    --red-5: "#0059b3"
+    --red-5-5: "#cceeff"
+    --red-6: "#e6f2ff"
+    --color-red-6-shadow: "rgba(0, 123, 255, 0.6)"
+    --color-red-3-shadow: "rgba(0, 123, 255, 0.3)"
 
     --highlight-nav: "#e6e6e6"
     --highlight-scrollbar: "#d6d6d6"

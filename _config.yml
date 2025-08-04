@@ -3,12 +3,12 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
+title: youse的博客
 subtitle: ''
-description: ''
+description: '个人技术博客与oc相关'
 keywords:
-author: John Doe
-language: en
+author: youyi
+language: zh-CN
 timezone: ''
 
 # URL
@@ -102,3 +102,17 @@ theme: reimu
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: ''
+
+
+# Math 
+markdown_it_plus:
+  rawLaTeX: true
+
+katex:
+  # 开启全局渲染（无需在每篇文章中声明）
+  global: false  # 建议设为 false，按需在文章头启用
+  # 排除不需要渲染的元素（可选）
+  exclude: 
+    - blockquote
+    - code
+
