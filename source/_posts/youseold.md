@@ -2,7 +2,7 @@
 title: 早期的自设以及setta设定
 date: 2025-07-26 16:55:25
 tags: ["oc", "绘画","设定"]
-cover: \image\cover\a5317eebfdff17ee5261d17d766a5eb9.jpg
+cover: /images/a5317eebfdff17ee5261d17d766a5eb9.jpg
 ---
 自设最早是在大三左右做的，而setta的设定最早是在研一做的。
 早期的时候，相比于oc更沉迷于绘制同人作品，所以相对的，oc的图与设定要少很多，再加上自己的风格和审美什么的也经常改变，所以设定经常看起来都不太一样，orz。
