@@ -753,7 +753,7 @@ $
 $\theta=\theta^0-\alpha J^+\Delta$
 一般情况下只有在函数附近才是有效的，因此会增加一个学习率
 通常比梯度下降法和雅可比矩阵法要快
-![alt text](../image/games105/截图_20251118225922.png)
+![alt text](/image/games105/截图_20251118225922.png)
 𝐽𝐽𝑇 / 𝐽𝑇𝐽有时候不可逆，或接近不可逆，求解值可能过大   ，带来不稳定的效果，因此会在其中加入一个阻尼项，能够保证（）内部矩阵可逆。
 也称为列文伯格-马夸特算法
 ![alt text](/image/games105/截图_20251118231956.png)
@@ -824,3 +824,292 @@ Tpose and Apose
 根据一系列的点生成对应的函数，再进行插值或外推
 ![alt text](/image/games105/截图_20251201212801.png)
 ![alt text](/image/games105/截图_20251201212825.png)
+
+**Stepped Interpolation**
+![alt text](/image/games105/截图_20251201213118.png)
+![alt text](/image/games105/截图_20251201213152.png)
+
+**Linear Interpolation**
+![alt text](/image/games105/截图_20251201213327.png)
+
+平滑方法：
+一阶导数相同、二阶导数相同
+![alt text](/image/games105/截图_20251201213452.png)
+
+**Polynomial Interpolation多项式插值**
+![alt text](/image/games105/截图_20251201213942.png)
+![alt text](/image/games105/截图_20251201214029.png)
+![alt text](/image/games105/截图_20251201214121.png)
+
+在边缘处产生较大震荡，
+所以低阶多项式更受欢迎
+![alt text](/image/games105/截图_20251201214453.png)
+
+**Spline Interpolation**
+使用低次分段多项式进行插值
+![alt text](/image/games105/截图_20251201214613.png)
+
+使用低阶分段多项式进行插值 
+• 一阶 → 分段线性插值
+![alt text](/image/games105/截图_20251201214807.png)
+
+• 三次多项式 → 三次样条
+![alt text](/image/games105/截图_20251201215036.png)
+
+**三次样条**
+有n段，所以有4n个未知数
+![alt text](/image/games105/截图_20251201215301.png)
+![alt text](/image/games105/截图_20251201215507.png)
+缺点：
+没有局部控制，每次更改一个点，将会影响整个曲线
+计算复杂，当n较大时需要处理庞大的线性系统
+
+**Cubic Hermite Splines**
+![alt text](/image/games105/截图_20251201221921.png)
+只看x1-x2这一段，因此x =x1时候，t = 0，x =x2时，t = 1
+![alt text](/image/games105/截图_20251201222859.png)
+![alt text](/image/games105/截图_20251201224618.png)
+![alt text](/image/games105/截图_20251202205915.png)
+![alt text](/image/games105/截图_20251202210122.png)
+![alt text](/image/games105/截图_20251202212509.png)
+当y1，y2点的位置，m1，m2为速度方向时：
+![alt text](/image/games105/截图_20251202212626.png)
+Example: Curve Tool of PowerPoint
+Hermite spline的特例Catmull-Rom Spline
+即对m1，m2定义
+![alt text](/image/games105/截图_20251202213114.png)
+
+**Interpolation of Rotations**
+四种表示方法：
+![alt text](/image/games105/截图_20251202213436.png)
+![alt text](/image/games105/截图_20251202213530.png)
+
+**四元数的球面线性插值（SLERP）**
+使用slerp对四元数进行插值（线性）
+![alt text](/image/games105/截图_20251202213738.png)
+[非线性插值](https://splines.readthedocs.io/en/latest/rotation/kochanek-bartels.html)
+Ken Shoemake. 1985 
+Animating rotation with quaternion curves. SIGGRAPH Computer Graphics
+
+## 05 Data-driven Character Animation
+### Motion Capture
+数字化记录人类、动画和物体的动作
+娱乐：游戏、电影、虚拟偶像、元宇宙
+运动：专业训练，表现优化
+医学：骨科、损伤诊断与治疗
+机器人技术：跟踪与定位
+
+**动作捕捉的历史**
+• 利用摄影研究运动
+• 跟踪抠像
+
+**现代动作捕捉系统**
+机械动作捕捉
+• Exoskeleton外骨骼
+惯性动作捕捉
+• Inertial Measurement Unit (IMU)惯性测量单元（IMU）
+• Accelerometers (3dof) + axis gyroscope (3dof)加速度计（3自由度）   轴向陀螺仪（3自由度）
+• 可选择其他传感器
+光学动作捕捉
+• Reflective/light-emitting markers• 反光/发光标记
+• Multi-view geometry• 多视角几何 
+• Solve body motions based on marker positions• 基于标记位置求解身体动作
+多摄像机无标记动作捕捉
+使用深度摄像头的无标记动作捕捉
+单目视频运动估计
+使用稀疏传感器的运动估计:vr设备
+
+### Motion Retargeting
+Retarget a motion to drive a character with 
+• Different number of bones 
+• Different bone names
+• Different reference pose
+• Different bone ratios
+• Different skeletal structure 
+可能的重新定向流程 
+• 映射骨骼名称 
+• 缩放平移 
+• 复制或重新定向关节旋转以修复参考姿势 
+• 使用IK进行后处理 
+• 脚滑动 
+• 自身穿透
+
+### Motion Transition
+前后两段动作取若干帧采用线性插值：
+![alt text](/image/games105/截图_20251202223301.png)
+前后两段动作取若干帧采用其他函数插值：
+![alt text](/image/games105/截图_20251202224018.png)
+主要采用后一段或前一段取出若干帧进行插值
+
+**Facing Frame**
+一种特殊的坐标系统，水平随角色移动，其中一个轴指向角色的“朝向方向”
+![alt text](/image/games105/截图_20251202224511.png)
+R的可能定义：
+𝑅 是将全局坐标系的 z 轴与航向方向对齐的 y 轴旋转
+𝑅 是沿 y 轴旋转，使全局坐标系的 x 轴与肩膀和臀部之间向量的平均方向对齐
+分解根旋转为 𝑅0 = 𝑅𝑦𝑅𝑥z
+分解旋转：
+先沿着面上的一个轴进行旋转，再沿着垂直于当前面的轴线进行旋转
+![alt text](/image/games105/截图_20251202225144.png)
+![alt text](/image/games105/截图_20251204214338.png)
+![alt text](/image/games105/截图_20251204214410.png)
+
+**Motion Transition**
+将后一段的坐标系转换到前一段上：
+![alt text](/image/games105/截图_20251204220907.png)
+或者使用不带roottranslation的动作数据，让人物沿着路径移动
+
+### Motion Graphs
+根据以下内容计算生成动作：
+• 用户控制 
+• 同一环境中的物体 
+• 其他角色的动作
+
+**分段运动数据**
+• 距离图（根据需求确定，可以是动作旋转，距离等）
+• 每个像素表示一对姿势之间的差异 
+• 局部最小值是潜在的转换点
+![alt text](/image/games105/截图_20251204223249.png)
+
+**动作合成**
+• 状态机 
+    • 节点表示动作片段 
+    • 边表示潜在的转场 
+    • 当需要时触发转场 
+        • 用户输入 
+        • 剧集结束 
+    • 检查下一片段的直接连接 
+        • 可能需要更深入的搜索
+![alt text](/image/games105/截图_20251204223436.png)
+根据用户输入、环境等更新动作，（后续可加入ik等）
+![alt text](/image/games105/截图_20251204223705.png)
+
+**Motion Matching**
+切换更加自然，（因为每帧进行计算最邻近动作）
+制作相对简单，但是控制性较差
+根据用户反馈等，以及动作数据集生成距离函数，选择距离最近的动作，并进行插值。
+![alt text](/image/games105/截图_20251204224618.png)
+
+## 06 Learning-based Character Animation
+### 交互式角色动画
+**Motion Graphs**
+**Motion Fields / Motion Matching**
+![alt text](/image/games105/截图_20251209222600.png)
+![alt text](/image/games105/截图_20251209222653.png)
+![alt text](/image/games105/截图_20251209222743.png)
+相比motionfields，MotionMatching使用最近状态，根据用户输入，并且通过混合的方式平滑。
+![alt text](/image/games105/截图_20251209222805.png)
+如何定义姿态的距离函数，可能的特征向量
+![alt text](/image/games105/截图_20251209223635.png)
+![alt text](/image/games105/截图_20251209223822.png)
+### 人体运动的统计模型
+**人体动作的低维性**
+• 协调的手臂/腿部运动 
+• 肌肉骨骼结构 
+• 物理法则
+![alt text](/image/games105/截图_20251209224112.png)
+**主成分分析 (PCA)**
+• 一种用于发现各维度之间的相关性降维的技术
+![alt text](/image/games105/截图_20251209225821.png)
+![alt text](/image/games105/截图_20251209225953.png)
+![alt text](/image/games105/截图_20251209230256.png)
+可以证明，𝒖 是 𝑋𝑇𝑋 的特征向量，对应于最大的特征值
+![alt text](/image/games105/截图_20251211221614.png)
+当多次取u时，每次都在上一次降维基础上，取新的轴，继续取最大方差
+![alt text](/image/games105/截图_20251211225405.png)
+因此有n个方差，把方差从大到小排列，即对应的n个特征值，其中的特征向量u互相垂直。
+![alt text](/image/games105/截图_20251211230357.png)
+保留多个主成分
+![alt text](/image/games105/截图_20251213175255.png)
+![alt text](/image/games105/截图_20251213175232.png)
+动作方差越小越自然，
+![alt text](/image/games105/截图_20251213175446.png)
+![alt text](/image/games105/截图_20251213175947.png)
+除了保持ik到达目标点距离最小值外，保持动作最自然。
+![alt text](/image/games105/截图_20251213180257.png)
+**数据分布**
+假设数据分布按照正态分布的形式，根据平均值与方差带入后可得：
+![alt text](/image/games105/截图_20251214114918.png)
+![alt text](/image/games105/截图_20251214115047.png)
+![alt text](/image/games105/截图_20251214115409.png)
+推导过程：
+![alt text](/image/games105/截图_20251214122851.png)
+![alt text](/image/games105/截图_20251214122948.png)
+![alt text](/image/games105/截图_20251214123033.png)
+![alt text](/image/games105/截图_20251214123130.png)
+因此之前的加方差可以带换成
+![alt text](/image/games105/截图_20251214123232.png)
+![alt text](/image/games105/截图_20251214123427.png)
+![alt text](/image/games105/截图_20251214123539.png)
+带运动先验的运动合成：
+给定从一组数据点 D 学习到的运动先验 𝑝(𝒙)，合成一个运动 𝒙 以最小化目标函数
+注意：𝑥 可以表示一个姿势 𝜽 或一个动作片段 → 一个姿势序列 {𝜽𝒕} 或动作的任何特征 → 例如 PCA 中的 𝑤𝑘
+![alt text](/image/games105/截图_20251214123800.png)
+![alt text](/image/games105/截图_20251214124326.png)
+其他分布模型：
+![alt text](/image/games105/截图_20251214124551.png)
+![alt text](/image/games105/截图_20251214124628.png)
+
+**运动模型**
+关于动作序列的两种视角：
+![alt text](/image/games105/截图_20251215081127.png)
+z为控制参数、潜变量、当前角色的状态（老人小孩等）
+![alt text](/image/games105/截图_20251215081251.png)
+![alt text](/image/games105/截图_20251215081607.png)
+给出控制条件，生成一段动作
+![alt text](/image/games105/截图_20251215082153.png)
+与前面一系列动作相关：
+![alt text](/image/games105/截图_20251215082413.png)
+只与前面一帧动作相关：
+![alt text](/image/games105/截图_20251215082534.png)
+自回归模型Autoregressive Model
+因此只需要前一帧到目前帧的函数变换
+![alt text](/image/games105/截图_20251215082704.png)
+![alt text](/image/games105/截图_20251215082859.png)
+因此使用插值的算法可得到当前帧的位置
+![alt text](/image/games105/截图_20251215083312.png)
+神经网络
+w为权重，b为偏移量，xi为加权值，σ为极大函数，当加权到某一最大值后输出。
+![alt text](/image/games105/截图_20251215083405.png)
+多层神经网络
+![alt text](/image/games105/截图_20251215083946.png)
+![alt text](/image/games105/截图_20251215084009.png)
+![alt text](/image/games105/截图_20251215084031.png)
+![alt text](/image/games105/截图_20251215084140.png)
+找到w1，b1，w2，b2...使得函数最小：
+![alt text](/image/games105/截图_20251215084239.png)
+![alt text](/image/games105/截图_20251215084842.png)
+随机梯度下降，循环更新θ，从数据集里选取小的子集，算出近似梯度，沿负梯度方向乘步长进行更新
+![alt text](/image/games105/截图_20251215085613.png)
+
+**歧义问题**
+可能向各个方向走，因此平均后可能方向朝前，产生错误。因此增加控制量z
+![alt text](/image/games105/截图_20251215090214.png)
+![alt text](/image/games105/截图_20251215090306.png)
+**PFNN: Phase-Functioned Neural Networks相位函数神经网络**
+![alt text](/image/games105/截图_20251215090528.png)
+![alt text](/image/games105/截图_20251215090742.png)
+由每个专家负责一部分，将最终结果按照权重进行混合
+![alt text](/image/games105/截图_20251215090810.png)
+将所有专家合并为一个专家（即参数按照一定的权重组合成一个函数）
+![alt text](/image/games105/截图_20251215090910.png)
+![alt text](/image/games105/截图_20251215091151.png)
+![alt text](/image/games105/截图_20251215091214.png)
+![alt text](/image/games105/截图_20251215091230.png)
+当不再是人物动作，如狗等动物时，如何定义相位以及相位权重?通常使用门网络来计算wi
+![alt text](/image/games105/截图_20251215091610.png)
+门网络输入参数，增加角速度的考虑，在狗的动作上有较好的表现，
+对两个脚分布定义一个相位函数，以及手部分别定义相位函数。
+通过傅里叶变换学到一个相位函数。
+![alt text](/image/games105/截图_20251215091740.png)
+
+**Generative Models生成模型**
+动作的概率分布函数是个复杂的函数，训练f（z）函数将正态分布函数变形成概率分布函数
+![alt text](/image/games105/截图_20251215214801.png)
+常见的方法：
+Variational Autoencoders变分自编码器:编码器f(x),解码器g(x)
+Generative Adversarial Network生成对抗网络：一个编码器，一个判别器，判断是否在概率分布函数上，当无法判断是否在其上时，则f（z）能够实现变换
+![alt text](/image/games105/截图_20251215215017.png)
+Normalizing Flows归一化流：类似Variational Autoencoders只不过使用了逆运算作为解码器
+扩散模型
+![alt text](/image/games105/截图_20251215220800.png)
